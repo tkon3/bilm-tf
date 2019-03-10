@@ -2,7 +2,7 @@
 Fork of elmo implementation, see https://github.com/allenai/bilm-tf
 
 ```
-pip install tensorflow-gpu==1.2 h5py sk-learn
+pip install tensorflow-gpu==1.2 h5py sklearn
 ```
 
 Citation:
