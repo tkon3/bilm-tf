@@ -17,7 +17,7 @@ To train and evaluate a biLM, you need to provide:
 
 The vocabulary file is a a text file with one token per line. It must also include the special tokens <S>, </S> and <UNK> (case sensitive) in the file.
 
-IMPORTANT: the vocabulary file should be sorted in descending order by token count in your training data. The first three lines should be the special tokens (<S>, </S> and <UNK>), then the most common token in the training data, ending with the least common token.
+IMPORTANT: the vocabulary file should be sorted in descending order by token count in your training data. The first three lines should be the special tokens (\<S>, \</S> and \<UNK>), then the most common token in the training data, ending with the least common token.
 
 NOTE: the vocabulary file used in training may differ from the one use for prediction.
 
