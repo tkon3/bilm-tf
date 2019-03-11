@@ -56,7 +56,7 @@ Run ```bin/test_elmo.py``` with the following arguments :
 # Dump weights
 First, edit options.json file for the newly trained model in the save_dir directory. 
 
-Important: always set n_characters to 262 after training (see below).
+\bImportant: always set n_characters to 262 after training (see below).
 
 Then Run:
 ```
