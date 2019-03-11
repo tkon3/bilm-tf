@@ -30,6 +30,7 @@ Finally, reserve a small amount of the training data as heldout data for evaluat
 
 
 ## Start training
+Edit bin/train_elmo.py for a custom architecture.
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
