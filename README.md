@@ -32,7 +32,7 @@ Finally, reserve a small amount of the training data as heldout data for evaluat
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
-Then run bin/train_elmo.py with the following arguments :
+Then run ```bin/train_elmo.py``` with the following arguments :
 ```
     --train_prefix='/path/to/dataset/**'  # ** allow to get files in directory and subdirectories
     --vocab_file='/path/to/vocab-2016-09-10.txt'  #optional if --build_vocab=True
@@ -43,7 +43,15 @@ Then run bin/train_elmo.py with the following arguments :
     --batch_size=128  #default 128
     --build_vocab=False  #default False
 ```
+# Evaluate
 
+Run ```bin/test_elmo.py``` with the following arguments :
+```
+    --test_prefix='/path/to/test_dataset/**' # ** allow to get files in directory and subdirectories
+    --vocab_file /path/to/vocab-2016-09-10.txt #optional if --build_vocab=True
+    --save_dir /output_path/to/checkpoint
+    --build_vocab=False  #default False
+```
 
 # Cite :
 
