@@ -8,6 +8,9 @@ pip install tensorflow-gpu==1.2 h5py
 Clone and run setup.py
 
 # Running embedding
+
+The training data should be randomly split into many training files, each containing one slice of the data. Each file contains pre-tokenized and white space separated text, one sentence per line. Don't include the <S> or </S> tokens in your training data.
+
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
