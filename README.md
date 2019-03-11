@@ -7,7 +7,19 @@ pip install tensorflow-gpu==1.2 h5py
 ```
 Clone and run setup.py
 
-# Running embedding
+# Preparing
+
+To train and evaluate a biLM, you need to provide:
+
+    a vocabulary file
+    a set of training files
+    a set of heldout files
+
+The vocabulary file is a a text file with one token per line. It must also include the special tokens <S>, </S> and <UNK> (case sensitive) in the file.
+
+IMPORTANT: the vocabulary file should be sorted in descending order by token count in your training data. The first three lines should be the special tokens (<S>, </S> and <UNK>), then the most common token in the training data, ending with the least common token.
+
+NOTE: the vocabulary file used in training may differ from the one use for prediction.
 
 The training data should be randomly split into many training files, each containing one slice of the data. Each file contains pre-tokenized and white space separated text, one sentence per line. Don't include the \<S> or \</S> tokens in your training data.
 
@@ -15,11 +27,8 @@ All tokenization/normalization is done before training a model, so both the voca
 
 Finally, reserve a small amount of the training data as heldout data for evaluating the trained biLM.
 
-IMPORTANT: the vocabulary file should be sorted in descending order by token count in your training data. The first three lines should be the special tokens (<S>, </S> and <UNK>), then the most common token in the training data, ending with the least common token.
 
-NOTE: the vocabulary file used in training may differ from the one use for prediction.
-
-
+# Start training
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
