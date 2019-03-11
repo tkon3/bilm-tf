@@ -1,23 +1,64 @@
 
 import argparse
-
 import numpy as np
-
 from bilm.training import train, load_options_latest_checkpoint, load_vocab
 from bilm.data import BidirectionalLMDataset
+import glob
+from collections import Counter
+
+def write_to_file(lexique, output_path):
+    
+    counter = 0
+    with open(output_path+"vocab.txt", "w", encoding='utf-8') as f:
+        f.write("%s\n" % "<S>")
+        f.write("%s\n" % "</S>")
+        f.write("%s\n" % "<UNK>")
+        for key, value in lexique.items():
+            f.write("%s\n" % key)
+            count += value
+            
+    return output_path+"vocab.txt", count
+
+def vocab_builder(train_path, output_path):
+    
+    file_list = glob.glob(train_path+"/*.txt",recursive=True)
+    word_counter = Counter()
+    base_list = []
+    
+    for i,file in enumerate(file_list):
+        if i % 20000 == 0:
+            word_counter.update(base_list)
+            base_list = []
+            
+        with open(file, encoding='utf-8') as f:
+            new_list = f.read().split()
+            
+        base_list = base_list + new_list  
+        
+    word_counter.update(base_list)
+    lexique = dict(sorted(word_counter.items(), key=operator.itemgetter(1), reverse=True))
+    
+    return write_to_file(lexique, output_path)
 
 
 def main(args):
     
-    # load the vocab
-    if args.vocab_file != "":
-        vocab = load_vocab(args.vocab_file, 50)
-    else:
-        pass
+    prefix = args.train_prefix
+    tf_save_dir = args.save_dir
+    tf_log_dir = args.save_dir
     
+    # load the vocab
+    if args.vocab_file != "" and args.build_vocab == False:
+        vocab = load_vocab(args.vocab_file, 50)
+   
     # number of tokens in training data 
-    if args.n_tokens != 0:
+    if args.n_tokens != 0 and args.build_vocab == False:
         n_train_tokens = args.n_tokens
+        
+    if args.build_vocab == True:
+        print("Building vocabulary...")
+        vocab_file, n_train_tokens = vocab_builder(prefix, tf_save_dir)
+        vocab = load_vocab(vocab_file, 50)
     
 
     # define the options
@@ -60,12 +101,10 @@ def main(args):
      'n_negative_samples_batch': 8192,
     }
 
-    prefix = args.train_prefix
+    
     data = BidirectionalLMDataset(prefix, vocab, test=False,
                                       shuffle_on_load=True)
-
-    tf_save_dir = args.save_dir
-    tf_log_dir = args.save_dir
+    
     train(options, data, n_gpus, tf_save_dir, tf_log_dir)
 
 
@@ -78,6 +117,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', help='Prefix for train files', type=int, default=10)
     parser.add_argument('--n_tokens', help='Prefix for train files', type=int, default=0)
     parser.add_argument('--batch_size', help='Prefix for train files', type=int, default=128)
+    parser.add_argument('--build_vocab', help='Prefix for train files', type=bool, default=False)
 
     args = parser.parse_args()
     main(args)
