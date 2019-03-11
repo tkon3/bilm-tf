@@ -11,6 +11,10 @@ Clone and run setup.py
 
 The training data should be randomly split into many training files, each containing one slice of the data. Each file contains pre-tokenized and white space separated text, one sentence per line. Don't include the \<S> or \</S> tokens in your training data.
 
+All tokenization/normalization is done before training a model, so both the vocabulary file and training files should include normalized tokens. As the default settings use a fully character based token representation, in general we do not recommend any normalization other then tokenization.
+
+Finally, reserve a small amount of the training data as heldout data for evaluating the trained biLM.
+
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
