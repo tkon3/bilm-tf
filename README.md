@@ -7,7 +7,8 @@ pip install tensorflow-gpu==1.2 h5py
 ```
 Clone and run setup.py
 
-# Preparing
+# Training
+## Preparing
 
 To train and evaluate a biLM, you need to provide:
 
@@ -28,7 +29,7 @@ All tokenization/normalization is done before training a model, so both the voca
 Finally, reserve a small amount of the training data as heldout data for evaluating the trained biLM.
 
 
-# Start training
+## Start training
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
@@ -43,7 +44,7 @@ Then run ```bin/train_elmo.py``` with the following arguments :
     --batch_size=128  #default 128
     --build_vocab=False  #default False
 ```
-# Evaluate
+## Evaluate
 
 Run ```bin/test_elmo.py``` with the following arguments :
 ```
@@ -53,7 +54,7 @@ Run ```bin/test_elmo.py``` with the following arguments :
     --build_vocab=False  #default False
 ```
 
-# Dump weights
+## Dump weights
 First, edit options.json file for the newly trained model in the save_dir directory. 
 
 **Important**: always set n_characters to 262 after training (see below).
