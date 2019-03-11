@@ -48,9 +48,21 @@ Then run ```bin/train_elmo.py``` with the following arguments :
 Run ```bin/test_elmo.py``` with the following arguments :
 ```
     --test_prefix='/path/to/test_dataset/**' # ** allow to get files in directory and subdirectories
-    --vocab_file /path/to/vocab-2016-09-10.txt #optional if --build_vocab=True
-    --save_dir /output_path/to/checkpoint
+    --vocab_file='/path/to/vocab-2016-09-10.txt' #optional if --build_vocab=True
+    --save_dir='/output_path/to/checkpoint'
     --build_vocab=False  #default False
+```
+
+# Dump weights
+First, edit options.json file for the newly trained model in the save_dir directory. 
+
+Important: always set n_characters to 262 after training (see below).
+
+Then Run:
+```
+python bin/dump_weights.py \
+    --save_dir='/output_path/to/checkpoint'
+    --outfile='/output_path/to/weights.hdf5'
 ```
 
 # Cite :
