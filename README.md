@@ -15,6 +15,11 @@ All tokenization/normalization is done before training a model, so both the voca
 
 Finally, reserve a small amount of the training data as heldout data for evaluating the trained biLM.
 
+IMPORTANT: the vocabulary file should be sorted in descending order by token count in your training data. The first three lines should be the special tokens (<S>, </S> and <UNK>), then the most common token in the training data, ending with the least common token.
+
+NOTE: the vocabulary file used in training may differ from the one use for prediction.
+
+
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2
 ```
@@ -31,7 +36,7 @@ Then run bin/train_elmo.py with the following arguments :
 ```
 
 
-Citation:
+# Cite :
 
 ```
 @inproceedings{Peters:2018,
