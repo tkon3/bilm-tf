@@ -1,8 +1,25 @@
 # bilm-tf
 Fork of elmo implementation, see https://github.com/allenai/bilm-tf
 
+# Installation
 ```
-pip install tensorflow-gpu==1.2 h5py sklearn
+pip install tensorflow-gpu==1.2 h5py
+```
+Clone and run setup.py
+
+# Running embedding
+```
+export CUDA_VISIBLE_DEVICES=0,1,2
+python bin/train_elmo.py \
+    --train_prefix='/path/to/dataset/**' \ # ** allow to get files in directory and subdirectories
+    --vocab_file='/path/to/vocab-2016-09-10.txt' \ #optional if --build_vocab=True
+    --save_dir='/output_path/to/checkpoint' \
+    --output_dim=256 \ #default 256
+    --epochs=10 \ #default 10
+    --n_tokens=20000000 \ #optional if --build_vocab=True 
+    --batch_size=128 \ #default 128
+    --build_vocab=False \ #default False
+    
 ```
 
 Citation:
